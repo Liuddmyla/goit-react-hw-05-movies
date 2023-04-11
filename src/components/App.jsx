@@ -1,4 +1,4 @@
-export const App = () => {
+export  const App = () => {
   return (
     <div
       style={{
@@ -14,3 +14,6 @@ export const App = () => {
     </div>
   );
 };
+
+
+// https://api.themoviedb.org/3/movie/550?api_key=7e2a233d026ec02ed6e123027bfe9410
