@@ -20,15 +20,14 @@ export const Home = () => {
         setStatus(Status.PENDING);
 
         fetch(URL).then(response => {
-            if (response.ok) {              
+            if (response.ok) {                
              return response.json();
             }
             return Promise.reject(new Error('Error!'))
          })
-            .then(({ results }) => {
-                console.log(results); 
+         .then(({ results }) => {               
             setFilms(results);
-            setStatus(Status.RESOLVED);      
+             setStatus(Status.RESOLVED);             
          })
          .catch(error => {
             setError(error);
@@ -42,7 +41,7 @@ export const Home = () => {
           <h1>Trending today</h1>
           {status === Status.PENDING  && <Loader />}
           {status === Status.REJECTED && (<div>{error.message}</div>)}          
-          {status === Status.RESOLVED  && (<ul><HomeList films={films} /></ul>)}
+          {films && (<ul><HomeList films={films} /></ul>)}
       </main>
   );
 };
