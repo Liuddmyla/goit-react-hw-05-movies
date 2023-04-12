@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Loader } from "components/Loader";
 import HomeList from "components/HomeList";
+import css from '../css/Home.module.css';
 
 const Status = {
     PENDING: 'pending',
@@ -27,7 +28,7 @@ export const Home = () => {
          })
          .then(({ results }) => {               
             setFilms(results);
-             setStatus(Status.RESOLVED);             
+            setStatus(Status.RESOLVED);             
          })
          .catch(error => {
             setError(error);
@@ -37,11 +38,11 @@ export const Home = () => {
 
 
   return (
-      <main>
-          <h1>Trending today</h1>
+      <main className={css.box}>
+          <h1 className={css.title}>Trending today</h1>
           {status === Status.PENDING  && <Loader />}
           {status === Status.REJECTED && (<div>{error.message}</div>)}          
-          {films && (<ul><HomeList films={films} /></ul>)}
+          {films && (<ul className={css.list}><HomeList films={films} /></ul>)}
       </main>
   );
 };
