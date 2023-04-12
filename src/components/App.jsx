@@ -1,24 +1,25 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./Layout";
+import Home from "pages/Home";
+import Movies from "pages/Movies";
+import MoviesDetails from "pages/MovieDetails";
 
 export const App = () => {
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/movies">Movies</Link>        
-      </nav>
+    <div>     
       <Routes>
-        <Route path="/" element={<div>Home component</div>} />
-        <Route path="/movies" element={<div>Movies component search</div>} />
-        <Route path="/movies/:movieId" element={<div>MovieDetails</div>}>
-          <Route path="cast" element={<div>cast</div>} />
-          <Route path="reviews" element={<div>reviews</div>} />
-        </Route>      
-        <Route path="*" element={<div>NotFound</div>} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId" element={<MoviesDetails />}>
+              <Route path="cast" element={<div>cast</div>} />
+              <Route path="reviews" element={<div>reviews</div>} />
+          </Route>      
+          <Route path="*" element={<div>NotFound</div>} />
+        </Route>        
       </Routes>
     </div>
   );
 };
 
 
-// https://api.themoviedb.org/3/movie/550?api_key=7e2a233d026ec02ed6e123027bfe9410
