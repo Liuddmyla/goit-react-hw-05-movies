@@ -1,13 +1,19 @@
 import { RotatingLines } from 'react-loader-spinner';
 
 export const Loader = () => {
-    return (
+    return (<div style={{
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',        
+      }}>
         <RotatingLines
             strokeColor="grey"
             strokeWidth="5"
             animationDuration="0.75"
-            width="500"
+            width="400"
             visible={true}            
-       />     
+       /> 
+    </div>            
     )
 }

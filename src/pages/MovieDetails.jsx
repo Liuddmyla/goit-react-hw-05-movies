@@ -5,9 +5,9 @@ import { ReactComponent as SearchIcon } from "../icons/undo2.svg";
 import { Loader } from "components/Loader";
 
 const Status = {
-    PENDING: 'pending',
-    RESOLVED: 'resolved',
-    REJECTED: 'rejected'
+  PENDING: 'pending',
+  RESOLVED: 'resolved',
+  REJECTED: 'rejected'
 };
 
 export const MoviesDetails = () => {
@@ -40,7 +40,7 @@ export const MoviesDetails = () => {
        setScore(data['vote_average'].toFixed(1));
        setOverview(data.overview);
        setGenres(data.genres);
-       setStatus(Status.RESOLVED); 
+       setStatus(Status.RESOLVED);    
      })
      .catch(error => {
        setError(error);
