@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Loader } from "components/Loader";
 import MoviesList from "components/MoviesList";
 import css from '../css/HomeMovies.module.css';
+import { toast } from 'react-toastify';
 
 const Status = {
   PENDING: 'pending',
@@ -32,7 +33,10 @@ const Movies = () => {
       }
         return Promise.reject(new Error('Error!'))
      })
-      .then(({results}) => {        
+      .then(({ results }) => {
+        if (results.length === 0) {
+           toast.error('Sorry, there are no films matching your search query. Please try again.', { autoClose: 2000, });
+        }
         setFilms(results);
         setStatus(Status.RESOLVED);             
      })
