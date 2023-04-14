@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import css from "../css/Layout.module.css";
+import { Loader } from "./Loader";
 
 const StyledLink = styled(NavLink)`
   color: black;
@@ -11,7 +13,7 @@ const StyledLink = styled(NavLink)`
     color: orange;
   }`;
 
-export const Layout = () => {
+const Layout = () => {
   return (
     <div>
         <header className={css.header}>
@@ -19,8 +21,11 @@ export const Layout = () => {
                 <StyledLink to="/" className={css.link}> Home</StyledLink>
                 <StyledLink to="/movies" className={css.link}>Movies</StyledLink>        
             </nav>            
-        </header> 
-        <Outlet />
+        </header>
+          <Suspense fallback={<><Loader/></>}>
+            <Outlet />
+          </Suspense>
+        
     </div>
   );
 };

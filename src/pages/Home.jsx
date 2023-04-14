@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Loader } from "components/Loader";
 import HomeList from "components/HomeList";
-import css from '../css/Home.module.css';
+import css from '../css/HomeMovies.module.css';
 
 const Status = {
     PENDING: 'pending',
@@ -9,7 +9,7 @@ const Status = {
     REJECTED: 'rejected'
 };
 
-export const Home = () => {
+const Home = () => {
 
     const [status, setStatus] = useState(null);
     const [films, setFilms] = useState([]);
@@ -48,3 +48,4 @@ export const Home = () => {
 };
 
 export default Home;
+

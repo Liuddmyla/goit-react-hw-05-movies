@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Outlet, Link, useParams } from "react-router-dom";
+import { Suspense, useEffect, useState } from "react";
+import { Outlet, Link, useParams, useNavigate } from "react-router-dom";
 import css from '../css/MovieDetails.module.css';
 import { ReactComponent as SearchIcon } from "../icons/undo2.svg";
 import { Loader } from "components/Loader";
@@ -10,8 +10,9 @@ const Status = {
   REJECTED: 'rejected'
 };
 
-export const MoviesDetails = () => {
+const MoviesDetails = () => {
   const { movieId } = useParams();
+  const navigate = useNavigate();
 
   const [poster, setPoster] = useState('');
   const [title, setTitle] = useState('');
@@ -26,6 +27,8 @@ export const MoviesDetails = () => {
     const URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=7e2a233d026ec02ed6e123027bfe9410`;       
     
     setStatus(Status.PENDING);
+
+    if (!movieId) return;
 
     fetch(URL).then(response => {
       if (response.ok) {         
@@ -46,14 +49,18 @@ export const MoviesDetails = () => {
        setError(error);
        setStatus(Status.REJECTED);
      });   
-    },[movieId])
+  }, [movieId])
+  
+  const handleClick = () => {
+    navigate('/');
+  }
   
     return (
       <main className={css.box}>
         {status === Status.REJECTED && (<div>{error.message}</div>)}
         {status === Status.PENDING && <Loader />}
         {status === Status.RESOLVED && (<>
-          <button type="button" className={css.button}><SearchIcon /> Go back </button>
+          <button type="button" onClick={handleClick} className={css.button}><SearchIcon /> Go back </button>
           <div className={css.card}>
             <img src={`https://image.tmdb.org/t/p/w200${poster}`} alt='poster' />
             <div>
@@ -77,8 +84,11 @@ export const MoviesDetails = () => {
                   <Link to="reviews">Reviews</Link>
                 </li>        
               </ul>
-          </div>         
-         <Outlet /></>  
+          </div> 
+          <Suspense fallback={<><Loader/></>}>
+            <Outlet />
+          </Suspense>          
+        </>  
         )}        
     </main>
     );
