@@ -45,7 +45,7 @@ const Cast = () => {
     <div>      
       {status === Status.REJECTED && (<div>{error.message}</div>)}
       {status === Status.PENDING && <Loader />}
-      {status === Status.RESOLVED && (<ul className={css.list}>          
+      {actors.length ? (<ul className={css.list}>          
           {actors.map(actor=>{
               return <li key={actor.id} className={css.item}>
                   {actor['profile_path'] ? <img src={`https://image.tmdb.org/t/p/w200${actor['profile_path']}`} alt='actor' /> :
@@ -55,7 +55,7 @@ const Cast = () => {
               </li>      
           })}
        </ul>  
-      )}   
+      ):<p>No information about the actors!</p>}   
     </div>
   );
 };

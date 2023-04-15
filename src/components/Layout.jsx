@@ -13,13 +13,14 @@ const StyledLink = styled(NavLink)`
     color: orange;
   }`;
 
-const Layout = () => {
+const Layout = () => {   
+  
   return (
     <div>
         <header className={css.header}>
             <nav className={css.nav}>
-                <StyledLink to="/" className={css.link}> Home</StyledLink>
-                <StyledLink to="/movies" className={css.link}>Movies</StyledLink>        
+                <StyledLink to="/" className={css.link} > Home</StyledLink>
+                <StyledLink to="/movies" className={css.link} >Movies</StyledLink>        
             </nav>            
         </header>
           <Suspense fallback={<><Loader/></>}>

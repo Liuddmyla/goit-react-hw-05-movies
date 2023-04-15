@@ -9,7 +9,7 @@ const SearchBar = ({onSubmit}) => {
     const [filmName, setFilmName] = useState(''); 
 
     const handleNameChange = (e) => {
-        setFilmName(e.currentTarget.value.toLowerCase());       
+        setFilmName(e.currentTarget.value);       
     }
 
     const handleSubmit = (e) => {
@@ -18,7 +18,7 @@ const SearchBar = ({onSubmit}) => {
         if (filmName.trim() === '') {
            return toast.info('Enter a name for the film !', {autoClose: 2000,});
         }        
-        onSubmit(filmName.trim());     
+        onSubmit(filmName.trim().toLowerCase());     
         
         setFilmName('');
     }    

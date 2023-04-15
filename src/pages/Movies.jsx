@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,17 +14,20 @@ const Status = {
   REJECTED: 'rejected'
 };
 
-const Movies = () => {
+const Movies = () => { 
 
-  const [filmName, setFilmName] = useState('');
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
   const [films, setFilms] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get("query");
+
 
   useEffect(() => {
-    const URL = `https://api.themoviedb.org/3/search/movie?api_key=7e2a233d026ec02ed6e123027bfe9410&query=${filmName}&language=en-US&page=1&include_adult=false`;
+    const URL = `https://api.themoviedb.org/3/search/movie?api_key=7e2a233d026ec02ed6e123027bfe9410&query=${query}&language=en-US&page=1&include_adult=false`;
 
-    if (!filmName) return;
+    if (!query) return;
 
      setStatus(Status.PENDING);
 
@@ -45,11 +49,11 @@ const Movies = () => {
         setStatus(Status.REJECTED);
      }); 
     
-  },[filmName])
+  },[query])
 
   const handleFormSubmit = (name) => {
     if (name) {
-      setFilmName(name);      
+      setSearchParams({ query: name });
     }    
   } 
   

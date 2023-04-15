@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from "react";
-import { Outlet, Link, useParams, useNavigate } from "react-router-dom";
+import { Outlet, Link, useParams, useLocation } from "react-router-dom";
 import css from '../css/MovieDetails.module.css';
 import { ReactComponent as SearchIcon } from "../icons/undo2.svg";
 import { Loader } from "components/Loader";
@@ -11,8 +11,9 @@ const Status = {
 };
 
 const MoviesDetails = () => {
-  const { movieId } = useParams();
-  const navigate = useNavigate();
+  const { movieId } = useParams();  
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/movies";
 
   const [poster, setPoster] = useState('');
   const [title, setTitle] = useState('');
@@ -50,17 +51,14 @@ const MoviesDetails = () => {
        setStatus(Status.REJECTED);
      });   
   }, [movieId])
-  
-  const handleClick = () => {
-    navigate('/');
-  }
+   
   
     return (
       <main className={css.box}>
         {status === Status.REJECTED && (<div>{error.message}</div>)}
         {status === Status.PENDING && <Loader />}
         {status === Status.RESOLVED && (<>
-          <button type="button" onClick={handleClick} className={css.button}><SearchIcon /> Go back </button>
+          <Link to={backLinkHref}><button type="button"  className={css.button}><SearchIcon /> Go back </button></Link>        
           <div className={css.card}>
             <img src={`https://image.tmdb.org/t/p/w200${poster}`} alt='poster' />
             <div>
@@ -78,10 +76,10 @@ const MoviesDetails = () => {
             <p>Additional information</p>
               <ul>
                 <li>
-                  <Link to="cast">Cast</Link>
+                  <Link to="cast" state={{ from: backLinkHref }}>Cast</Link>
                 </li>
                 <li>
-                  <Link to="reviews">Reviews</Link>
+                  <Link to="reviews" state={{ from: backLinkHref }}>Reviews</Link>
                 </li>        
               </ul>
           </div> 

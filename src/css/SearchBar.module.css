@@ -5,6 +5,7 @@
 }
 
 .button{
+    margin-top: 5px;
     position: absolute;
     border: transparent;
     background-color: transparent;

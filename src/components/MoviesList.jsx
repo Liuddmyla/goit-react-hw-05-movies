@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
 import css from '../css/HomeMovies.module.css';
 
 const MoviesList = ({ films }) => {  
+
+    const location = useLocation();
    
   return (
         films.map(film => {
             return <li key={film.id} className={css.item}>                
-                <Link to={`/movies/${film.id}`} className={css.card}>
+                <Link to={`/movies/${film.id}`} state={{ from: location }} className={css.card}>
                     {film['poster_path'] ? <img src={`https://image.tmdb.org/t/p/w200${film['poster_path']}`} alt='poster' />
                         : <img src="https://burst.shopifycdn.com/photos/a-movie-clapper-board-film-roll-and-sprocket-wheel.jpg?width=500&format=pjpg&exif=1&iptc=1" alt="actor" width="200" height="300" />}
                     <p>{film.title}</p></Link>     
