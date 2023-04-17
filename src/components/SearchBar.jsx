@@ -1,15 +1,19 @@
-import {  useState } from "react";
+import { useState } from "react";
+// import { useSearchParams } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { ReactComponent as SearchIcon } from "../icons/search.svg";
 import css from '../css/SearchBar.module.css';
 
-const SearchBar = ({onSubmit}) => {
+const SearchBar = ({ onSubmit}) => {    
 
     const [filmName, setFilmName] = useState(''); 
+    // const [searchParams, setSearchParams] = useSearchParams();
+
+    // const searchQuery = searchParams.get("query")??"";
 
     const handleNameChange = (e) => {
-        setFilmName(e.currentTarget.value);       
+        setFilmName(e.currentTarget.value);        
     }
 
     const handleSubmit = (e) => {
@@ -18,9 +22,10 @@ const SearchBar = ({onSubmit}) => {
         if (filmName.trim() === '') {
            return toast.info('Enter a name for the film !', {autoClose: 2000,});
         }        
-        onSubmit(filmName.trim().toLowerCase());     
+        onSubmit(filmName.trim().toLowerCase());
         
-        setFilmName('');
+        // setSearchParams({ query: e.currentTarget.elements.search.value });        
+        
     }    
 
     return (
@@ -29,8 +34,9 @@ const SearchBar = ({onSubmit}) => {
                 <span className={css.icon}><SearchIcon /></span>
             </button>
             <input
-                className={css.input}    
-                type="text"
+                className={css.input}  
+                name="search"
+                type="text"                
                 placeholder="Search films..."
                 value={filmName}
                 onChange={handleNameChange}

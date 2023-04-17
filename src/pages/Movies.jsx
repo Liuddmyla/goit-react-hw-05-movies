@@ -21,7 +21,7 @@ const Movies = () => {
   const [films, setFilms] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const query = searchParams.get("query");
+  const query = searchParams.get("query")??'';
 
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const Movies = () => {
   
   return (<>
     <ToastContainer/>
-    <SearchBar onSubmit={handleFormSubmit}/>
+    <SearchBar onSubmit={handleFormSubmit} />
     <div>
     {status === Status.PENDING  && <Loader />}
     {status === Status.REJECTED && (<div>{error.message}</div>)}
