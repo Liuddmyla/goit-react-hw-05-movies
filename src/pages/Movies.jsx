@@ -59,7 +59,7 @@ const Movies = () => {
   
   return (<>
     <ToastContainer/>
-    <SearchBar onSubmit={handleFormSubmit} />
+    <SearchBar onSubmit={handleFormSubmit} query={query} />
     <div>
     {status === Status.PENDING  && <Loader />}
     {status === Status.REJECTED && (<div>{error.message}</div>)}
